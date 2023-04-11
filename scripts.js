@@ -1,13 +1,9 @@
 function createRow(){
     row = document.createElement('div')
 
-    row.className = "row"
+    row.className = "row";
 
-    // row.style.background = "blue";
-    // row.style.borderStyle = "solid";
     row.style.flex = "auto";
-
-
 
     return row
 }
@@ -29,18 +25,20 @@ function numerousRow(){
 
 function createBox(){
     box = document.createElement('div')
+    
+    box.className = "box";
 
     box.style.borderStyle = "solid";
     // box.style.background = "red";
 
     box.style.flex = "auto";
 
-    console.log(box)
+    // console.log(box)
 
     return box
 }
 
-function insertBox(){
+function insertBox(boxListeners){
     numerousRow()
 
     rows = document.querySelectorAll(".row")
@@ -55,11 +53,33 @@ function insertBox(){
         }
         
     }
+
+    boxListeners()
 }
 
+function boxListeners(){
+    const boxListeners = document.querySelectorAll(".box")
+    boxListeners.forEach((box) => {
+        box.addEventListener('mouseover', () =>{
+            box.style.background = randomColor();
+        })
+    })
+}
+
+function randomColor(){
+    let color = [];
+    for (let i=0; i<3; i++){
+        color.push(Math.floor(Math.random()*256));
+    }
+    return "rgb("+color.join(", ")+ ")";
+}
+
+window.onload = insertBox(boxListeners);
 
 
-window.onload = insertBox;
+// window.onload = addListeners;
+
+
 
 // function numerousBox(){
 //     for (i=0; i<5; i++){
