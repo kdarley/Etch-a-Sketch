@@ -1,0 +1,30 @@
+html, body {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    border-style: solid;
+    height: 80%;
+    width: auto;
+    aspect-ratio: 1/1;
+    margin-bottom: 10px;
+}
+
+.container:after{
+    padding-bottom: 100%
+}
+
+.row{
+    display: flex;
+}
