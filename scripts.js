@@ -1,3 +1,4 @@
+// core
 function createRow(){
     row = document.createElement('div')
 
@@ -12,13 +13,16 @@ function insertRow(){
     row = createRow()
 
     container = document.querySelector(".container")
+    // row.style.borderStyle = "solid";
+    // row.style.background = "blue";
+
 
     container.appendChild(row)
 }
 
 
-function numerousRow(){
-    for (i=0; i<5; i++){
+function numerousRow(num){
+    for (i=0; i<num; i++){
         insertRow()
     }
 }
@@ -40,8 +44,8 @@ function createBox(){
     return box
 }
 
-function insertBox(boxListeners){
-    numerousRow()
+function insertBox(boxListeners, num){
+    numerousRow(num)
 
     rows = document.querySelectorAll(".row")
     // rows.style.flex = 1;
@@ -49,7 +53,7 @@ function insertBox(boxListeners){
     const numCols = rows.length
 
     for (row of rows){
-        for (i=0; i<5; i++){
+        for (i=0; i<rows.length; i++){
             box = createBox()
             row.appendChild(box)
         }
@@ -70,6 +74,7 @@ function boxListeners(){
     })
 }
 
+// color change
 function incrementKeyCode(box){
     code = parseInt(getKeyCode(box))
     code += 1
@@ -81,7 +86,6 @@ function getKeyCode(box){
     code = box.getAttribute("key-code")
     return code
 }
-
 
 function randomColor(getKeyCode){
     if (getKeyCode > 5){
@@ -95,4 +99,28 @@ function randomColor(getKeyCode){
     }
 }
 
-window.onload = insertBox(boxListeners);
+function removeAllChildren(insertNew){
+    let rows = document.querySelectorAll(".row")
+    rows.forEach(row => {
+        row.remove();
+    });
+
+    insertBox(boxListeners, insertNew)
+}
+
+//slider
+let sliderInput = document.querySelector("input");
+let sliderOutput = document.querySelector("output");
+
+sliderOutput.innerHTML = sliderInput.value;
+
+sliderInput.addEventListener("input", ()=>{
+    sliderOutput.innerHTML = sliderInput.value;
+
+    removeAllChildren(sliderInput.value);
+
+
+}, false)
+
+
+window.onload = insertBox(boxListeners, 5);
