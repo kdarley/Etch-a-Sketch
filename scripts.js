@@ -28,6 +28,8 @@ function createBox(){
     
     box.className = "box";
 
+    box.setAttribute('key-code', 0)
+
     box.style.borderStyle = "solid";
     // box.style.background = "red";
 
@@ -61,30 +63,36 @@ function boxListeners(){
     const boxListeners = document.querySelectorAll(".box")
     boxListeners.forEach((box) => {
         box.addEventListener('mouseover', () =>{
-            box.style.background = randomColor();
+            box.style.background = randomColor(getKeyCode(box));
+            incrementKeyCode(box);
+            
         })
     })
 }
 
-function randomColor(){
-    let color = [];
-    for (let i=0; i<3; i++){
-        color.push(Math.floor(Math.random()*256));
+function incrementKeyCode(box){
+    code = parseInt(getKeyCode(box))
+    code += 1
+    box.setAttribute("key-code", code)
+    return getKeyCode(box)
+}
+
+function getKeyCode(box){
+    code = box.getAttribute("key-code")
+    return code
+}
+
+
+function randomColor(getKeyCode){
+    if (getKeyCode > 5){
+        return "rgb(0,0,0)"
+    } else {
+        let color = [];
+        for (let i=0; i<3; i++){
+            color.push(Math.floor(Math.random()*256));
+        }
+        return "rgb("+color.join(", ")+ ")";
     }
-    return "rgb("+color.join(", ")+ ")";
 }
 
 window.onload = insertBox(boxListeners);
-
-
-// window.onload = addListeners;
-
-
-
-// function numerousBox(){
-//     for (i=0; i<5; i++){
-//         insertBox()
-//     }
-// }
-
-// window.onload = numerousBox;
